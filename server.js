@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
+const mysql = require('mysql');
+const path = require('path');
+
 const port = process.env.PORT || 5000;
-const mysql = require('mysql')
 
 var connection = mysql.createConnection({
   host: "dekkaii-emerge-fitness.cuwzvi2tojrd.us-east-2.rds.amazonaws.com",
@@ -11,18 +13,19 @@ var connection = mysql.createConnection({
   password: "arigato41"
 });
 
-const USER_RETRIEVE_SQL = `INSERT INTO user (first_name, last_name, email_address, date_of_birth, phone_mobile)
-VALUES ('Brian', 'Wilson', 'Brian.L.Wilson@protonmail.com', '1990-04-22', '13476385157')`;
-
 app.listen(port, () => console.log(`Light Yagami is listening on port ${port}`))
 
+app.use(express.urlencoded());
+
 app.get('/', (req, res) => {
-  res.send("Server online")
+  // res.send("Server online")
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.post('/users', (req, res) => {
   connection.query(`INSERT INTO user (first_name, last_name, email_address, date_of_birth, phone_mobile)
-  VALUES ('Sharif', 'Syed', 'Sharif.chf@gmail.com', '1990-08-07', '12345')`, function(err, result){
+  VALUES (?, ?, ?, ?, ?)`, [req.body.first_name, req.body.last_name, req.body.email_address, req.body.date_of_birth, req.body.phone_mobile], 
+  function(err, result){
     if(err) throw err;
     console.log("1 record sucess");
   });
