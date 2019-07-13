@@ -5,8 +5,13 @@
     <title></title>
   </head>
   <style>
+    html {
+      height: 100%;
+    }
     body {
       font-family: Arial;
+      height:100%;
+      margin: 0;
     }
 
     input, select {
@@ -47,9 +52,83 @@
       align-items: center;
       justify-content: center;
     }
+    
+    #navBar {
+      display:flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: space-around;
+      background-color: #749688;
+    }
+    
+    #navBarItem {
+      display:flex;
+      flex-direction: row;
+      justify-content:space-around;
+      width: 72%;
+      color: white;
+      style: bold;
+      padding: 1%;
+    }
+    
+    #navBarItem:hover { background-color: #849688}
+    
+    #columnLeft {
+      margin: 1%;
+      background-color: #7ddce4;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      width: 24%;
+    }
+    
+    #columnRight {
+      margin: 1%;
+      background-color: #b7d985;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      width: 76%;
+    }
+    
+    #modal {
+      display:none;
+      background-color: rgba(255, 255, 255, 0.6);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+    
+    #mainContentContainer {
+      padding: 1%;
+      background-color: #fffff4;
+      height: 100%;
+      flex-grow:1;
+      display: flex;
+      flex: 1;
+      bottom: 0;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
   </style>
+  <script>
+    function showForm(){
+      document.getElementById("modal").style.display = "flex";
+    }
+    function hideForm(){
+      document.getElementById("modal").style.display = "none";
+    }
+  </script>
   <body>
-    <div id="pageBase">
+    <div id="modal">
       <div class="formContainer">
         <form class="" action="/users" method="post">
           <label for="first_name">What is your first name?</label>
@@ -67,9 +146,37 @@
           <label for="phone_mobile">What is your phone number?</label>
           <input name="phone_mobile" type="tel">
           
-          <input type="submit" value="Submit">
+          <input type="submit" value="Submit" onclick="hideForm()">
         </form>
       </div>
+    </div>
+    
+    <div id="navBar">
+      <div id="navBarItem">Home</div>
+      <div id="navBarItem">About Dr. Syed</div>
+      <div id="navBarItem">Intervention</div>
+      <div id="navBarItem">Speak to us</div>
+    </div>
+    
+    <div id="mainContentContainer">
+      <div id="columnLeft">
+        <div>
+          <h3>Topics</h3>
+          <p>Depression</p>
+          <p>Anxiety</p>
+          <p>Stress Disorder</p>
+          <p>Early Life / Childhood</p>
+        </div>
+
+      </div>
+      
+      <div id="columnRight">
+        columnRight
+        <div class="columnRightContent">
+          <button onclick="showForm()">Get more information!</button>
+        </div>
+      </div>
+      
     </div>
   </body>
 </html>
