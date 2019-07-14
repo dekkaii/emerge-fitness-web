@@ -16,6 +16,7 @@ var connection = mysql.createConnection({
 app.listen(port, () => console.log(`Light Yagami is listening on port ${port}`))
 
 app.use(express.urlencoded());
+app.use(express.static('resources'))
 
 app.get('/', (req, res) => {
   // res.send("Server online")

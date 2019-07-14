@@ -2,7 +2,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Emerge Fitness MD</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
   </head>
   <style>
     html {
@@ -119,18 +121,33 @@
       align-items: center;
     }
   </style>
-  <script>
-    function showForm(){
-      document.getElementById("modal").style.display = "flex";
-    }
-    function hideForm(){
-      document.getElementById("modal").style.display = "none";
-    }
-  </script>
   <body>
+    <script>
+      function showForm(){
+        document.getElementById("modal").style.display = "flex";
+      }
+      function hideForm(){
+        document.getElementById("modal").style.display = "none";
+      }
+      $(document).ready(function(){
+        $('#nonRedirectingForm').submit(function(e){
+          e.preventDefault();
+          console.log("non redirecting form trig");
+          $.ajax({
+            url: '/users',
+            type: 'post',
+            data: $('#nonRedirectingForm').serialize(),
+            success: function(){
+              console.log("data pushed successfully");
+            }
+          })
+          hideForm();
+        })
+      })
+    </script>
     <div id="modal">
       <div class="formContainer">
-        <form class="" action="/users" method="post">
+        <form id="nonRedirectingForm" action="/users" method="post">
           <label for="first_name">What is your first name?</label>
           <input name="first_name" type="text">
           
@@ -146,7 +163,8 @@
           <label for="phone_mobile">What is your phone number?</label>
           <input name="phone_mobile" type="tel">
           
-          <input type="submit" value="Submit" onclick="hideForm()">
+          <input type="submit" value="Submit">
+          <button onclick="hideForm()">No thanks!</button>
         </form>
       </div>
     </div>
@@ -174,6 +192,9 @@
         columnRight
         <div class="columnRightContent">
           <button onclick="showForm()">Get more information!</button>
+        </div>
+        <div class="columnRightContent">
+          <img src="cardio.jpg">
         </div>
       </div>
       
