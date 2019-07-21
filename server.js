@@ -19,8 +19,22 @@ app.use(express.urlencoded());
 app.use(express.static('resources'))
 
 app.get('/', (req, res) => {
-  // res.send("Server online")
   res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname + '/pages/about.html'));
+});
+
+app.get('/forms/:formId', (req, res) => {
+  console.log("formid: " + req.params.formId)
+  // connection.query(`SELECT * FROM form_questions WHERE form_id = uuid_to_bin(?)`, [req.params.formId], 
+  connection.query(`SELECT * FROM form_questions`, [], 
+  function(err, result){
+    if(err) throw err;
+    console.log("form questions retrieved successfully!");
+    console.log(result);
+  })
 });
 
 app.post('/users', (req, res) => {

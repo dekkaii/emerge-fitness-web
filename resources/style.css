@@ -1,0 +1,137 @@
+<style>
+  html {
+    height: 100%;
+  }
+  body {
+    font-family: Arial;
+    height:100%;
+    margin: 0;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  div.formContainer {
+    width:50%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  #pdfViewer {
+    width:83%;
+    height: 83%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  #pageBase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #navBar {
+    display:flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-around;
+    background-color: #749688;
+  }
+  
+  #navBarItem {
+    display:flex;
+    flex-direction: row;
+    justify-content:space-around;
+    width: 72%;
+    color: white;
+    style: bold;
+    padding: 1%;
+  }
+  
+  #navBarItem:hover {
+    background-color: #849688;
+    cursor: pointer;
+  }
+  
+  #columnLeft {
+    margin: 1%;
+    background-color: #7ddce4;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-around;
+    width: 24%;
+  }
+  
+  #columnRight {
+    margin: 1%;
+    background-color: #b7d985;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 76%;
+  }
+  
+  #modal {
+    display:none;
+    background-color: rgba(255, 255, 255, 0.6);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  
+  #pdfModal {
+    display:none;
+    background-color: rgba(255, 255, 255, 0.6);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  
+  #mainContentContainer {
+    padding: 1%;
+    background-color: #fffff4;
+    height: 100%;
+    flex-grow:1;
+    display: flex;
+    flex: 1;
+    bottom: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: start;
+  }
+</style>
