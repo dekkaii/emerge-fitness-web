@@ -14,6 +14,30 @@
       function hideForm(){
         document.getElementById("modal").style.display = "none";
       }
+      function populateForm(formQuestions){
+        var form = document.getElementById("captureForm");
+        formQuestions.forEach((question)=>{
+          var thisInput = document.createElement("input");
+          thisInput.setAttribute("type", "range");
+          thisInput.setAttribute("min", "1");
+          thisInput.setAttribute("max", "5");
+          thisInput.setAttribute("name", `questionNumber${question["question_number"]}`);
+          var thisLabel = document.createElement("label");
+          thisLabel.innerHTML = question["body"];
+          thisLabel.setAttribute("for", thisInput.getAttribute("name"));
+          var agree = document.createElement("p");
+          agree.innerHTML = "Strongly Agree";
+          var disagree = document.createElement("p");
+          disagree.innerHTML = "Strongly Disagree";
+          var inputContainer = document.createElement("div");
+          inputContainer.className = "inputContainer"
+          inputContainer.prepend(agree);
+          inputContainer.prepend(thisInput);
+          inputContainer.prepend(disagree);
+          form.prepend(inputContainer);
+          form.prepend(thisLabel);
+        })
+      }
       function showPdfViewer(docName){
         document.getElementById("pdfModal").style.display = "flex";
         var iframe = document.createElement("iframe");
@@ -26,22 +50,27 @@
         document.getElementById("pdfModal").style.display = "none";
       }
       function initiateForm(){
-        console.log("init form!");
+        console.log("AJAX GET request triggered");
         $.ajax({
-          url: '/forms/013a4b7d-ab5a-11e9-ae73-06f9bd258668',
+          url: '/forms/819adc36-ab59-11e9-ae73-06f9bd258668',
           type: 'get',
           success: function(data){
-            alert(data);
+            console.log("AJAX GET success func triggered");
+            showForm();
+            populateForm(data['formQuestions']);
+          },
+          error: function(msg){
+            console.log('AJAX GET error func triggered');
           }
         })
       }
       $(document).ready(function(){
-        $('#nonRedirectingForm').submit(function(e){
+        $('#captureForm').submit(function(e){
           e.preventDefault();
           $.ajax({
-            url: '/users',
+            url: '/forms',
             type: 'post',
-            data: $('#nonRedirectingForm').serialize(),
+            data: $('#captureForm').serialize() + '&formtype=captureForm',
             success: function(){
               console.log("data pushed successfully");
             }
@@ -57,7 +86,7 @@
     </div>
     <div id="modal">
       <div class="formContainer">
-        <form id="nonRedirectingForm" action="/users" method="post">
+        <form id="captureForm" name="captureForm" action="/forms" method="post">
           <label for="first_name">What is your first name?</label>
           <input name="first_name" type="text">
           
