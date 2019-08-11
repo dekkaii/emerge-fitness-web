@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const path = require('path');
-const uuid = require('uuid/v1');
 
 const port = process.env.PORT || 5000;
 
