@@ -8,11 +8,12 @@
   </head>
   <body>
     <script>
-      function showForm(){
-        document.getElementById("modal").style.display = "flex";
+      var completedCaptureFormData = null;
+      function showModal(modalId){
+        document.getElementById(modalId).style.display = "flex";
       }
-      function hideForm(){
-        document.getElementById("modal").style.display = "none";
+      function hideModal(modalId){
+        document.getElementById(modalId).style.display = "none";
       }
       function populateForm(formQuestions){
         var form = document.getElementById("captureForm");
@@ -48,15 +49,16 @@
       }
       function hidePdfViewer(){
         document.getElementById("pdfModal").style.display = "none";
+        hideModal("pdfModal")
       }
       function initiateForm(){
         console.log("AJAX GET request triggered");
         $.ajax({
-          url: '/forms/3e61b37c-c094-11e9-ae73-06f9bd258668',
+          url: '/forms/88e9a895-c121-11e9-ae73-06f9bd258668',
           type: 'get',
           success: function(data){
             console.log("AJAX GET success func triggered");
-            showForm();
+            showModal('formModal');
             populateForm(data['formQuestions']);
           },
           error: function(msg){
@@ -64,30 +66,49 @@
           }
         })
       }
+      function submitResilienceAfterAuth(){
+        console.log("submitResilienceAfterAuth()");
+        $.ajax({
+          url: '/forms',
+          type: 'post',
+          data: completedCaptureFormData,
+          success: function(){
+            console.log("data pushed successfully");
+          }
+        })
+      }
       $(document).ready(function(){
         $('#captureForm').submit(function(e){
           e.preventDefault();
-          $.ajax({
-            url: '/forms',
-            type: 'post',
-            data: $('#captureForm').serialize() + '&formtype=captureForm',
-            success: function(){
-              console.log("data pushed successfully");
-            }
-          })
-          hideForm();
+          completedCaptureFormData = $('#captureForm').serialize() + '&formtype=captureForm';
+          showAuth();
+          //TODO: do this AJAX after authentication
+          // $.ajax({
+          //   url: '/forms',
+          //   type: 'post',
+          //   data: $('#captureForm').serialize() + '&formtype=captureForm',
+          //   success: function(){
+          //     console.log("data pushed successfully");
+          //   }
+          // })
+          hideModal();
         })
       })
     </script>
-    <div id="pdfModal">
+    <div id="pdfModal" class="lightModal">
       <div id="pdfViewer">
-        <button onclick="hidePdfViewer()">Exit</button>
+        <button onclick="hidePdfViewer()">Quit</button>
       </div>
     </div>
-    <div id="modal">
+    <div id="authModal" class="lightModal">
+      <div id="authViewer">
+        <button onclick="hideAuthViewer()">Quit</button>
+      </div>
+    </div>
+    <div id="formModal" class="lightModal">
       <div class="formContainer">
         <form id="captureForm" name="captureForm" action="/forms" method="post">
-          <label for="first_name">What is your first name?</label>
+          <!-- <label for="first_name">What is your first name?</label>
           <input name="first_name" type="text">
           
           <label for="last_name">What is your last name?</label>
@@ -103,7 +124,7 @@
           <input name="phone_mobile" type="tel">
           
           <input type="submit" value="Submit">
-          <button onclick="hideForm()">No thanks!</button>
+          <button onclick="hideModal()">No thanks!</button> -->
         </form>
       </div>
     </div>
@@ -147,7 +168,7 @@
         columnRight
         <div class="columnRightContent">
           <button onclick="initiateForm()">How Resilient Are You?</button>
-          <button onclick="showForm()">Get more information!</button>
+          <button onclick="showModal('formModal')">Get more information!</button>
         </div>
         <div class="columnRightContent">
           <img src="cardio.jpg">

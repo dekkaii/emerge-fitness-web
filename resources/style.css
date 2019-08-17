@@ -102,18 +102,7 @@
     width: 76%;
   }
   
-  #modal {
-    display:none;
-    background-color: rgba(255, 255, 255, 0.6);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-  }
-  
-  #pdfModal {
+  .lightModal {
     display:none;
     background-color: rgba(255, 255, 255, 0.6);
     flex-direction: column;

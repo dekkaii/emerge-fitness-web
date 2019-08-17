@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
 const mysql = require('mysql');
 const path = require('path');
 
@@ -15,7 +16,9 @@ var connection = mysql.createConnection({
 
 app.listen(port, () => console.log(`Light Yagami is listening on port ${port}`))
 
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static('resources'))
 
 app.get('/', (req, res) => {
